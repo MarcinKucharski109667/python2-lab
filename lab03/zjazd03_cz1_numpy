@@ -1,0 +1,662 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "25b3d71d",
+   "metadata": {},
+   "source": [
+    "# Zjazd 3, część 1 — NumPy\n",
+    "**Autor:** [Marcin Kucharski]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 86,
+   "id": "34e1e51a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 87,
+   "id": "d7cd9d34",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Oceny: [4.  3.5 5.  4.5 3.  4.  5. ]\n",
+      "Typ: float64\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 1. Z listy\n",
+    "oceny = np.array([4.0, 3.5, 5.0, 4.5, 3.0, 4.0, 5.0])\n",
+    "print(f\"Oceny: {oceny}\")\n",
+    "print(f\"Typ: {oceny.dtype}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 88,
+   "id": "a97c7eb8",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Zera: [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 2. Zera — 10 elementów\n",
+    "zera = np.zeros(10)\n",
+    "print(f\"Zera: {zera}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 89,
+   "id": "b0526480",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Jedynki:\n",
+      "[[1. 1. 1. 1. 1.]\n",
+      " [1. 1. 1. 1. 1.]\n",
+      " [1. 1. 1. 1. 1.]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 3. Jedynki — macierz 3×5\n",
+    "jedynki = np.ones((3, 5))\n",
+    "print(f\"Jedynki:\\n{jedynki}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 90,
+   "id": "13f8037a",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Dziesiątki: [  0  10  20  30  40  50  60  70  80  90 100]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 4. Sekwencja od 0 do 100, co 10\n",
+    "dziesiatki = np.arange(0, 101, 10)\n",
+    "print(f\"Dziesiątki: {dziesiatki}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 91,
+   "id": "c33de857",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Procenty: [0.         0.16666667 0.33333333 0.5        0.66666667 0.83333333\n",
+      " 1.        ]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 5. 7 równomiernych punktów od 0 do 1\n",
+    "procenty = np.linspace(0, 1, 7)\n",
+    "print(f\"Procenty: {procenty}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 92,
+   "id": "8d6eb61b",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Losowe oceny: [4 5 2 4 4 5 2 2 4 3 4 4 4 4 5 2 5 5 5 4]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# 6. 20 losowych ocen od 2 do 5\n",
+    "np.random.seed(42)\n",
+    "losowe_oceny = np.random.randint(2, 6, size=20)\n",
+    "print(f\"Losowe oceny: {losowe_oceny}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 93,
+   "id": "dd257f51",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "shape: (20,)\n",
+      "ndim: 1\n",
+      "size: 20\n",
+      "dtype: int32\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Zbadaj tablicę losowych ocen\n",
+    "print(f\"shape: {losowe_oceny.shape}\")\n",
+    "print(f\"ndim: {losowe_oceny.ndim}\")\n",
+    "print(f\"size: {losowe_oceny.size}\")\n",
+    "print(f\"dtype: {losowe_oceny.dtype}\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 94,
+   "id": "72272530",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "miesiace_sprzedaz = np.array([120, 135, 98, 142, 167, 189, 201, 178, 156, 143, 198, 221])\n",
+    "# Indeksy:                     0     1    2    3    4    5    6    7    8    9   10   11\n",
+    "# Miesiące:                  Sty  Lut  Mar  Kwi  Maj  Cze  Lip  Sie  Wrz  Paź  Lis  Gru"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 95,
+   "id": "1d498f81",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "120\n"
+     ]
+    }
+   ],
+   "source": [
+    "#1.\n",
+    "print(miesiace_sprzedaz[0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 96,
+   "id": "3fc47d83",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "221\n"
+     ]
+    }
+   ],
+   "source": [
+    "#2.\n",
+    "print(miesiace_sprzedaz[-1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 97,
+   "id": "70f754cd",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[120 135  98]\n"
+     ]
+    }
+   ],
+   "source": [
+    "#3.\n",
+    "print(miesiace_sprzedaz[0:3])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 98,
+   "id": "565a8dd1",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[143 198 221]\n"
+     ]
+    }
+   ],
+   "source": [
+    "#4.\n",
+    "print(miesiace_sprzedaz[-3:])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 99,
+   "id": "3cde83da",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[221 198 143 156 178 201 189 167 142  98 135 120]\n"
+     ]
+    }
+   ],
+   "source": [
+    "#5.\n",
+    "print(miesiace_sprzedaz[::-1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 100,
+   "id": "a96d6269",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Sprzedaż 4 produktów w 3 kwartałach\n",
+    "dane = np.array([\n",
+    "    [120, 145, 167],   # Produkt A\n",
+    "    [89,  102, 95],    # Produkt B\n",
+    "    [234, 267, 289],   # Produkt C\n",
+    "    [56,  78,  91],    # Produkt D\n",
+    "])\n",
+    "produkty = ['Produkt A', 'Produkt B', 'Produkt C', 'Produkt D']\n",
+    "kwartaly = ['Q1', 'Q2', 'Q3']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 101,
+   "id": "d2c61594",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "145\n"
+     ]
+    }
+   ],
+   "source": [
+    "#1.\n",
+    "print(dane[0, 1])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 102,
+   "id": "48776199",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[234 267 289]\n"
+     ]
+    }
+   ],
+   "source": [
+    "#1.\n",
+    "print(dane[2])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 103,
+   "id": "30cfdc90",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[120  89 234  56]\n"
+     ]
+    }
+   ],
+   "source": [
+    "#1.\n",
+    "print(dane[:, 0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 104,
+   "id": "9e1a3a10",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[102  95]\n",
+      " [267 289]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "#1.\n",
+    "print(dane[1:3, 1:3])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 105,
+   "id": "5c75f681",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Produkty w sklepie internetowym\n",
+    "nazwy = ['Laptop', 'Tablet', 'Smartfon', 'Słuchawki', 'Ładowarka',\n",
+    "         'Klawiatura', 'Mysz', 'Monitor', 'Kamera', 'Drukarka']\n",
+    "\n",
+    "ceny = np.array([3499, 1899, 2499, 349, 89, 249, 129, 1499, 599, 899])\n",
+    "ilosci_magazyn = np.array([15, 42, 78, 156, 312, 89, 201, 23, 45, 34])\n",
+    "oceny_klientow = np.array([4.7, 4.2, 4.5, 4.8, 3.9, 4.1, 4.3, 4.6, 3.8, 3.5])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 106,
+   "id": "348899f6",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1171.0\n",
+      "Laptop\n",
+      "Ładowarka\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Średnia cena, najdroższy produkt, najtańszy produkt\n",
+    "print(ceny.mean())\n",
+    "print(nazwy[np.argmax(ceny)]) #najdrozszy produkt\n",
+    "print(nazwy[np.argmin(ceny)]) # najtanszy produkt"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 107,
+   "id": "5904ae2f",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[ 52485  79758 194922  54444  27768  22161  25929  34477  26955  30566]\n",
+      "549465\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Oblicz wartość każdego produktu (cena × ilość) i łączną wartość magazynu\n",
+    "wartosci = ilosci_magazyn * ceny\n",
+    "print(wartosci)\n",
+    "print(sum(wartosci))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 108,
+   "id": "e6bf2367",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "6\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Ceny po rabacie 15% (promocja świąteczna)\n",
+    "cenyRabat = ceny*0.85\n",
+    "# Ceny z VAT 23%\n",
+    "cenyVat = ceny*1.23\n",
+    "# Ile produktów kosztuje powyżej 1000 zł?\n",
+    "print(len(ceny[ceny<1000]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 109,
+   "id": "2f00be12",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Laptop' 'Słuchawki' 'Monitor']\n",
+      "[3499  349 1499]\n",
+      "['Ładowarka' 'Mysz']\n",
+      "[312 201]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Produkty z oceną >= 4.5 — nazwy i ceny\n",
+    "npNazwy = np.array(nazwy)\n",
+    "print(npNazwy[oceny_klientow>4.5])\n",
+    "print(ceny[oceny_klientow>4.5])\n",
+    "# Produkty poniżej 200 zł — nazwy i ilości w magazynie\n",
+    "print(npNazwy[ceny<200])\n",
+    "print(ilosci_magazyn[ceny<200])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 110,
+   "id": "3ebf1956",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['Laptop' 'Monitor']\n",
+      "86962\n",
+      "3.819095477386935\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Produkty z niskim stanem magazynowym (< 30 szt.) — nazwy\n",
+    "print(npNazwy[ilosci_magazyn<30])\n",
+    "# Łączna wartość tych produktów\n",
+    "print((ceny[ilosci_magazyn<30]*ilosci_magazyn[ilosci_magazyn<30]).sum())\n",
+    "# Ile % całego magazynu stanowią?\n",
+    "print(ilosci_magazyn[ilosci_magazyn<30].sum()/ilosci_magazyn.sum()*100)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 111,
+   "id": "68a5c890",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "=== Mnożenie ×2 (1,000,000 elementów) ===\n",
+      "Lista:  61.2 ms\n",
+      "NumPy:  2.8 ms\n",
+      "NumPy jest 22× szybszy!\n"
+     ]
+    }
+   ],
+   "source": [
+    "import time\n",
+    "\n",
+    "# Przygotowanie danych\n",
+    "rozmiar = 1_000_000\n",
+    "lista = list(range(rozmiar))\n",
+    "tablica = np.array(lista)\n",
+    "\n",
+    "# Test 1: Pomnóż przez 2\n",
+    "start = time.perf_counter()\n",
+    "wynik_lista = [x * 2 for x in lista]\n",
+    "czas_lista = time.perf_counter() - start\n",
+    "\n",
+    "start = time.perf_counter()\n",
+    "wynik_numpy = tablica * 2\n",
+    "czas_numpy = time.perf_counter() - start\n",
+    "\n",
+    "print(f\"=== Mnożenie ×2 ({rozmiar:,} elementów) ===\")\n",
+    "print(f\"Lista:  {czas_lista*1000:.1f} ms\")\n",
+    "print(f\"NumPy:  {czas_numpy*1000:.1f} ms\")\n",
+    "print(f\"NumPy jest {czas_lista/czas_numpy:.0f}× szybszy!\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 112,
+   "id": "adffced7",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "=== Suma (1,000,000 elementów) ===\n",
+      "Lista:  26.9 ms\n",
+      "NumPy:  1.0 ms\n",
+      "NumPy jest 27× szybszy!\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Test 2: Suma\n",
+    "start = time.perf_counter()\n",
+    "suma_lista = sum(lista)\n",
+    "czas_lista = time.perf_counter() - start\n",
+    "\n",
+    "start = time.perf_counter()\n",
+    "suma_numpy = tablica.sum()\n",
+    "czas_numpy = time.perf_counter() - start\n",
+    "\n",
+    "print(f\"\\n=== Suma ({rozmiar:,} elementów) ===\")\n",
+    "print(f\"Lista:  {czas_lista*1000:.1f} ms\")\n",
+    "print(f\"NumPy:  {czas_numpy*1000:.1f} ms\")\n",
+    "print(f\"NumPy jest {czas_lista/czas_numpy:.0f}× szybszy!\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 113,
+   "id": "17540d5e",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "=== Filtrowanie > 500k (1,000,000 elementów) ===\n",
+      "Lista:  43.3 ms\n",
+      "NumPy:  2.1 ms\n",
+      "NumPy jest 20× szybszy!\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Test 3: Filtrowanie (elementy > 500000)\n",
+    "start = time.perf_counter()\n",
+    "filtr_lista = [x for x in lista if x > 500000]\n",
+    "czas_lista = time.perf_counter() - start\n",
+    "\n",
+    "start = time.perf_counter()\n",
+    "filtr_numpy = tablica[tablica > 500000]\n",
+    "czas_numpy = time.perf_counter() - start\n",
+    "\n",
+    "print(f\"\\n=== Filtrowanie > 500k ({rozmiar:,} elementów) ===\")\n",
+    "print(f\"Lista:  {czas_lista*1000:.1f} ms\")\n",
+    "print(f\"NumPy:  {czas_numpy*1000:.1f} ms\")\n",
+    "print(f\"NumPy jest {czas_lista/czas_numpy:.0f}× szybszy!\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "5bf9818c",
+   "metadata": {},
+   "source": [
+    "## Wnioski z benchmarku\n",
+    "- NumPy jest **25×** szybszy w mnożeniu\n",
+    "- NumPy jest **28×** szybszy w sumowaniu\n",
+    "- NumPy jest **23×** szybszy w filtrowaniu\n",
+    "- Wniosek: przy dużych danych **zawsze** używaj NumPy zamiast list"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f7aa9cf7",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "student",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.12.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
